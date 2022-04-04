@@ -1,10 +1,13 @@
 # PonyPixel
 Pixel place bot for Brony team at r/place 2022
 
+This version loads bot.png and mask.png loacally from disk, allowing you to choose which parts to proioritize. 
+Check https://github.com/r-ainbowroad/minimap/tree/d/main/mlp for the most recent version of art.
+
 ## How to run
 1. Install Python 3.7. Python version below 3.7 will NOT WORK. It **MUST** be Python 3.7 or above.
 2. Install Git. This is required for you to be able to update the bot.
-3. Download the bot by using the `git clone https://github.com/CloudburstSys/PonyPixel.git` command
+3. Download the bot by using the `git clone https://github.com/apanx/PonyPixel.git` command
 4. Navigate to the downloaded file using `cd PonyPixel`
 5. Run `pip install -r requirements.txt` or `pip3 install -r requirements.txt` to download requirements
 6. Run `pip install websocket-client` or `pip3 install websocket-client` cos that one module just hates me apparently
