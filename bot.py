@@ -200,7 +200,9 @@ def setRPlaceTemplate(templateName):
 # Fetch template, returns a Promise<Uint8Array>, on error returns the response object
 def fetchTemplate(url):
     # return unsignedInt8Array[W, H, C] of the URL
-    im = urllib.urlopen(f'{url}?t={time.time()}').read()# load raw file
+    f = open(url,"rb")
+    im = f.read()# load raw file
+    f.close()
     im = image_to_npy(Image.open(BytesIO(im)).convert("RGBA"))# raw -> intMatrix([W, H, (RGBA)])
     assert im.dtype == 'uint8', f'got dtype {im.dtype}, expected uint8'
     assert im.shape[2] == 4, f'got {im.shape[2]} color channels, expected 4 (RGBA)'
@@ -213,7 +215,7 @@ def updateTemplate():
     rPlaceTemplateUrl = rPlaceTemplate['botUrl'] if rPlaceTemplate['botUrl'] is not None else rPlaceTemplate['canvasUrl']
     
     try:
-        templateData = fetchTemplate(rPlaceTemplateUrl)# [W, H, (RGBA)]
+        templateData = fetchTemplate('bot.png')# [W, H, (RGBA)]
     except Exception as err:
         print("Error updating template")
         raise err
@@ -222,7 +224,7 @@ def updateTemplate():
     maskData = np.zeros(templateData.shape, dtype=numpy.uint8)
     if rPlaceTemplate['maskUrl'] is not None:
         try:
-            submask = fetchTemplate(rPlaceTemplate['maskUrl'])# [W, H, (RGBA)]
+            submask = fetchTemplate('mask.png')# [W, H, (RGBA)]
             maskData[:submask.shape[0], :submask.shape[1]] = submask
             
             #loadMask()
